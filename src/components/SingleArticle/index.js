@@ -1,18 +1,40 @@
 import './SingleArticle.css';
+import { loadArticles } from '../../store/articleReducer';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-const SingleArticle = () => {
+
+
+  const SingleArticle = ({articles}) => { // we need to prop drill {articles}
+  // const dispatch = useDispatch();
+  // const articles = useSelector(state=>state.articleState.entries);
+
+  // useEffect(() => {
+  //   dispatch(loadArticles());
+  // }, [dispatch]);
+
+  const {id} = useParams(); // we get {id} from the key in ArticleList 
+  // const [oneArticle, setOneArticle] = useState(); 
+  
+  // useEffect (() => {
+  //   setOneArticle(articleChoice); 
+  // console.log(id)
+  // })
+  const articleChoice = articles.find(article => article.id === id);  
+  // console.log(articleChoice)
+  
   return (
     <div className='singleArticle'>
-      <h1>Why Am I At Home</h1>
+  
+      <h1>{articleChoice.title}</h1>
       <img
-        src='https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Frobcain%2Ffiles%2F2017%2F10%2FKevin-Home-Alone.jpg'
-        alt='home'
+        src = {articleChoice.imageUrl}
+        alt={articleChoice.title}
       />
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex esse
-        laboriosam officia accusantium veritatis fugiat exercitationem vero
-        autem nihil aliquid ullam recusandae, quis odit odio voluptates
-        explicabo nobis! Consequuntur, aliquam?
+       {articleChoice.body}
       </p>
     </div>
   );
